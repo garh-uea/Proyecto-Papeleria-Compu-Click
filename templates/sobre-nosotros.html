@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre Nosotros{% endblock %}
+
+{% block content %}
+
+<header class="bg-dark text-light text-center py-4">
+    <img src="{{ url_for('static', filename='Multimedia/Compu_Click.png') }}">
+    <h1>Papelería Compu Click</h1>
+</header>
+
+<main class="container my-5">
+
+    <img src="{{ url_for('static', filename='Multimedia/Local.jpg') }}">
+         class="img-fluid rounded mb-4 w-50 d-block mx-auto">
+
+    <p class="lead text-center fw-semibold">
+        Papelería Compu Click es un establecimiento dedicado a la comercialización
+        de útiles escolares, artículos de oficina y servicios digitales.
+        Nuestro compromiso es brindar soluciones prácticas, rápidas y accesibles
+        a estudiantes, profesionales y empresas.
+    </p>
+
+    <p class="lead text-center fw-semibold">
+        Contamos con servicios de impresión, copias, escaneo, plastificado,
+        anillado, recargas telefónicas y pago de servicios básicos.
+        Nuestro enfoque se basa en la atención personalizada y la mejora continua.
+    </p>
+
+    <p class="lead text-center fw-semibold">
+        Gracias a la confianza de nuestros clientes, Compu Click se ha consolidado
+        como una papelería moderna, eficiente y orientada al desarrollo académico
+        y empresarial de la comunidad.
+    </p>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('inicio') }}" class="btn btn-primary">
+            VOLVER
+        </a>
+    </div>
+
+</main>
+
+{% endblock %}

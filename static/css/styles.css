@@ -1,0 +1,27 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.hero-full {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+}
+
+.hero-full span {
+    color: #00e5ff;
+}
+
+.footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+button:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease;
+}

@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+
+<section class="container my-5">
+    <h2 class="text-center mb-4">Registro de Clientes</h2>
+
+    <form id="formularioRegistro" class="row g-3 needs-validation" novalidate>
+
+        <!-- Nombre -->
+        <div class="col-md-6 campo">
+            <input type="text"
+                   class="form-control"
+                   id="nombre"
+                   placeholder="Nombre completo"
+                   pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,50}$"
+                   required>
+            <small>Solo letras y espacios (mínimo 3 caracteres)</small>
+            <div class="invalid-feedback">
+                Ingrese un nombre válido.
+            </div>
+        </div>
+
+        <!-- Correo -->
+        <div class="col-md-6 campo">
+            <input type="email"
+                   class="form-control"
+                   id="correo"
+                   placeholder="Correo electrónico"
+                   required>
+            <div class="invalid-feedback">
+                Ingrese un correo válido.
+            </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="col-md-6 campo">
+            <input type="password"
+                   class="form-control"
+                   id="contrasena"
+                   placeholder="Contraseña"
+                   pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$"
+                   required>
+            <small>
+                Mínimo 8 caracteres, 1 mayúscula, 1 minúscula,
+                1 número y 1 carácter especial.
+            </small>
+            <div class="invalid-feedback">
+                La contraseña no cumple los requisitos.
+            </div>
+        </div>
+
+        <!-- Confirmar Contraseña -->
+        <div class="col-md-6 campo">
+            <input type="password"
+                   class="form-control"
+                   id="confirmarContrasena"
+                   placeholder="Confirmar contraseña"
+                   required>
+            <div class="invalid-feedback">
+                Las contraseñas no coinciden.
+            </div>
+        </div>
+
+        <!-- Edad -->
+        <div class="col-md-6 campo">
+            <input type="number"
+                   class="form-control"
+                   id="edad"
+                   placeholder="Edad"
+                   min="10"
+                   max="100"
+                   required>
+            <div class="invalid-feedback">
+                Ingrese una edad válida (10 - 100).
+            </div>
+        </div>
+
+        <!-- Ciudad -->
+        <div class="col-md-6 campo">
+            <input type="text"
+                   class="form-control"
+                   id="ciudad"
+                   placeholder="Ciudad"
+                   pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,40}$"
+                   required>
+            <div class="invalid-feedback">
+                Ingrese una ciudad válida.
+            </div>
+        </div>
+
+        <!-- Celular -->
+        <div class="col-md-6 campo">
+            <input type="tel"
+                   class="form-control"
+                   id="celular"
+                   placeholder="Celular"
+                   pattern="^09\d{8}$"
+                   required>
+            <small>Debe iniciar con 09 y tener 10 dígitos</small>
+            <div class="invalid-feedback">
+                Número de celular inválido.
+            </div>
+        </div>
+
+        <!-- Categoría -->
+        <div class="col-md-6 campo">
+            <select class="form-control" id="categoria" required>
+                <option value="">Categoría de interés</option>
+                <option>Útiles escolares</option>
+                <option>Oficina</option>
+                <option>Servicios</option>
+            </select>
+            <div class="invalid-feedback">
+                Seleccione una categoría.
+            </div>
+        </div>
+
+        <!-- Como nos conocíó -->
+        <div class="col-md-6 campo">
+            <select class="form-control" id="origen" required>
+                <option value="">¿Cómo nos conoció?</option>
+                <option>Redes sociales</option>
+                <option>Recomendación</option>
+                <option>Visita al local</option>
+            </select>
+            <div class="invalid-feedback">
+                Seleccione una opción.
+            </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="col-12 text-center">
+            <button type="submit"
+                    id="botonEnviar"
+                    class="btn btn-success px-4">
+                Registrar
+            </button>
+
+            <button type="reset"
+                    id="botonLimpiar"
+                    class="btn btn-secondary px-4 ms-2">
+                Limpiar
+            </button>
+        </div>
+
+    </form>
+</section>
+
+<!-- Script de validación Bootstrap + Confirmación de contraseña -->
+<script>
+(() => {
+    'use strict'
+
+    const form = document.getElementById('formularioRegistro');
+    const password = document.getElementById('contrasena');
+    const confirmPassword = document.getElementById('confirmarContrasena');
+
+    form.addEventListener('submit', function (event) {
+
+        if (password.value !== confirmPassword.value) {
+            confirmPassword.setCustomValidity("Las contraseñas no coinciden");
+        } else {
+            confirmPassword.setCustomValidity("");
+        }
+
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+
+    }, false);
+})();
+</script>
+
+{% endblock %}
