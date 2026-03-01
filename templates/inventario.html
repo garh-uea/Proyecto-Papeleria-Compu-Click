@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Inventario{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <h2 class="text-center">Inventario de Productos</h2>
+
+    <div class="text-end mb-3">
+        <a href="{{ url_for('agregar') }}" class="btn btn-success">
+            Añadir Producto
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% if productos %}
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto[0] }}</td>
+                    <td>{{ producto[1] }}</td>
+                    <td>{{ producto[2] }}</td>
+                    <td>${{ producto[3] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar_producto', id=producto[0]) }}" 
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <a href="{{ url_for('eliminar', id=producto[0]) }}" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('¿Está seguro de eliminar este producto?');">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">
+                        No hay productos registrados.
+                    </td>
+                </tr>
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

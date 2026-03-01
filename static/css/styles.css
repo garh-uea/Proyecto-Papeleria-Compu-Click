@@ -25,3 +25,15 @@ button:hover {
     transform: scale(1.05);
     transition: 0.2s ease;
 }
+
+.table th, .table td {
+    text-align: center;
+}
+
+.btn-success, .btn-warning, .btn-danger {
+    transition: 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #198754cc;
+}
