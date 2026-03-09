@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Datos{% endblock %}
+
+{% block content %}
+
+<div class="container my-5 contenedor-datos">
+
+<h2 class="titulo-seccion">Archivos</h2>
+
+<img src="{{ url_for('static', filename='Multimedia/datos.png') }}"
+class="img-fluid rounded mb-4 w-50 d-block mx-auto sombra-img">
+
+<!-- TABLA TXT -->
+
+<div class="tabla-seccion">
+
+<h3 class="subtitulo">Datos guardados en TXT</h3>
+
+<table class="tabla-datos">
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Cantidad</th>
+<th>Precio</th>
+</tr>
+
+{% for d in txt %}
+<tr>
+<td>{{ d[0] }}</td>
+<td>{{ d[1] }}</td>
+<td>{{ d[2] }}</td>
+<td>{{ d[3] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+
+<!-- TABLA JSON -->
+
+<div class="tabla-seccion">
+
+<h3 class="subtitulo">Datos guardados en JSON</h3>
+
+<table class="tabla-datos">
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Cantidad</th>
+<th>Precio</th>
+</tr>
+
+{% for d in json %}
+<tr>
+<td>{{ d.id }}</td>
+<td>{{ d.nombre }}</td>
+<td>{{ d.cantidad }}</td>
+<td>{{ d.precio }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+
+<!-- TABLA CSV -->
+
+<div class="tabla-seccion">
+
+<h3 class="subtitulo">Datos guardados en CSV</h3>
+
+<table class="tabla-datos">
+
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Cantidad</th>
+<th>Precio</th>
+</tr>
+
+{% for d in csv %}
+<tr>
+<td>{{ d[0] }}</td>
+<td>{{ d[1] }}</td>
+<td>{{ d[2] }}</td>
+<td>{{ d[3] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+
+<div class="text-center mt-4">
+
+<a href="{{ url_for('inicio') }}" class="btn-volver">
+← Volver al inicio
+</a>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,18 +1,99 @@
 {% extends "base.html" %}
 
-{% block title %}Contactos{% endblock %}
+{% block title %}Contáctanos | Compu Click{% endblock %}
 
 {% block content %}
 
-<section class="container my-5 text-center">
-    <h2>Sobre Nosotros</h2>
-    <p class="lead">
-        Papelería Compu Click es un emprendimiento ubicado en Tena,
-        ofreciendo útiles escolares, servicios digitales e impresiones.
-    </p>
+<section class="container my-5 contacto-section">
 
-    <p>Email: compuclick_tena@gmail.com</p>
-    <p>WhatsApp: 0999532532</p>
+<h1 class="titulo-contacto">
+📞 ¡Conéctate con Papelería Compu Click!
+</h1>
+
+<p class="lead text-center mb-4">
+Estamos listos para ayudarte con útiles escolares, impresiones,
+servicios digitales y mucho más.
+</p>
+
+<div class="row align-items-center">
+
+<!-- INFORMACION -->
+
+<div style="text-align:center;">
+<img src="{{ url_for('static', filename='Multimedia/logo.jpg') }}"
+class="img-multimedia">
+</div>
+
+<div class="col-md-6 contacto-info">
+<p class="direccion">
+📍 <strong>Dirección:</strong><br>
+Juan Montalvo y General Gallo, junto a la entrada de la
+Unidad Educativa <strong>"Hermano Miguel"</strong><br>
+Tena – Provincia de Napo
+</p>
+
+<p>
+📧 <strong>Email:</strong><br>
+compuclick_tena@gmail.com
+</p>
+
+<p>
+📱 <strong>WhatsApp:</strong>
+</p>
+
+<a href="https://wa.me/593999532532"
+class="btn-contacto whatsapp-btn"
+target="_blank">
+
+💬 Chatear por WhatsApp
+
+</a>
+
+<p class="mt-4">
+👍 <strong>Síguenos en Facebook</strong>
+</p>
+
+<a href="https://www.facebook.com/CompuClickTena/"
+target="_blank"
+class="btn-contacto facebook-btn">
+
+Ir a nuestra página de Facebook
+
+</a>
+
+<p class="mt-4">
+🗺️ <strong>Ver ubicación en Google Maps</strong>
+</p>
+
+<a href="https://www.google.com/maps/place/Papeleria+Compu+Click/@-0.9920269,-77.8170065,67m/data=!3m1!1e3!4m6!3m5!1s0x91d6a537dcfa8827:0x84380fd902fad791!8m2!3d-0.9920296!4d-77.8168857!16s%2Fg%2F11yq_xh6h5?entry=ttu&g_ep=EgoyMDI2MDMwNC4xIKXMDSoASAFQAw%3D%3D"
+target="_blank"
+class="btn-contacto mapa-btn">
+
+Abrir ubicación
+
+</a>
+
+</div>
+
+<!-- MAPA -->
+
+<div class="col-md-6">
+
+<iframe
+src="https://www.google.com/maps?q=-0.9920296,-77.8168857&hl=es&z=17&output=embed"
+width="100%"
+height="350"
+style="border:0;"
+allowfullscreen=""
+loading="lazy"
+class="mapa-contacto">
+
+</iframe>
+
+</div>
+
+</div>
+
 </section>
 
 {% endblock %}

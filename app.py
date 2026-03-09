@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from modelos import Inventario, crear_tablas
+from inventario import Inventario, crear_tablas
+from productos import PersistenciaArchivos
 
 app = Flask(__name__)
 
@@ -7,6 +8,7 @@ app = Flask(__name__)
 crear_tablas()
 
 inventario = Inventario()
+archivos = PersistenciaArchivos()
 
 # ================= INICIO =================
 @app.route('/')
@@ -40,14 +42,28 @@ def ver_inventario():
 
 
 # ================= AGREGAR PRODUCTO =================
-@app.route('/agregar', methods=['GET', 'POST'])
+@app.route('/agregar', methods=['GET','POST'])
 def agregar():
+
     if request.method == 'POST':
+
         nombre = request.form['nombre']
         cantidad = int(request.form['cantidad'])
         precio = float(request.form['precio'])
 
-        inventario.agregar_producto(nombre, cantidad, precio)
+        inventario.agregar_producto(nombre,cantidad,precio)
+
+        # Obtener último producto guardado
+        productos = inventario.obtener_todos()
+        ultimo = productos[-1]
+
+        id = ultimo[0]
+
+        # Guardar en archivos
+        archivos.guardar_txt(id,nombre,cantidad,precio)
+        archivos.guardar_json(id,nombre,cantidad,precio)
+        archivos.guardar_csv(id,nombre,cantidad,precio)
+
         return redirect(url_for('ver_inventario'))
 
     return render_template('agregar_producto.html')
@@ -75,6 +91,20 @@ def eliminar(id):
     inventario.eliminar_producto(id)
     return redirect(url_for('ver_inventario'))
 
+
+@app.route("/datos")
+def ver_datos():
+
+    datos_txt = archivos.leer_txt()
+    datos_json = archivos.leer_json()
+    datos_csv = archivos.leer_csv()
+
+    return render_template(
+        "datos.html",
+        txt=datos_txt,
+        json=datos_json,
+        csv=datos_csv
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
