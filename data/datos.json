@@ -22,5 +22,11 @@
         "nombre": "Marcador Tiza L\u00edquida",
         "cantidad": 12,
         "precio": 0.75
+    },
+    {
+        "id": 9,
+        "nombre": "Esfero BIC punta fina",
+        "cantidad": 20,
+        "precio": 0.5
     }
 ]

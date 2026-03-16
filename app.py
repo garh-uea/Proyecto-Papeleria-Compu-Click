@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from inventario import Inventario, crear_tablas
 from productos import PersistenciaArchivos
+from Conexion.conexion import obtener_conexion
 
 app = Flask(__name__)
 
