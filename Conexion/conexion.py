@@ -4,17 +4,19 @@ from mysql.connector import Error
 def obtener_conexion():
     try:
         conexion = mysql.connector.connect(
-            host="127.0.0.1",
+            host="localhost",
             user="root",
-            password="",
-            database="papeleria_compu_click",
+            password="",  # En XAMPP normalmente es vacío
+            database="compu_click",
             port=3306,
-            use_pure=True  # evita el error del conector C
+            auth_plugin='mysql_native_password',
+            use_pure=True
         )
 
-        return conexion
+        if conexion.is_connected():
+            return conexion
 
     except Error as e:
-        print("ERROR DE CONEXIÓN MYSQL:")
+        print("ERROR MYSQL:")
         print(e)
         return None

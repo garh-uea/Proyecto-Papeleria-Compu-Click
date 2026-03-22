@@ -7,12 +7,27 @@
 <section class="container my-5">
     <h2 class="text-center mb-4">Registro de Clientes</h2>
 
-    <form id="formularioRegistro" class="row g-3 needs-validation" novalidate>
+    <form method="POST" id="formularioRegistro" class="row g-3 needs-validation" novalidate>
+
+        <!-- Nombre de Usuario (NUEVO) -->
+        <div class="col-md-6 campo">
+            <input type="text"
+                   class="form-control"
+                   name="usuario"
+                   placeholder="Nombre de Usuario"
+                   pattern="^[a-zA-Z0-9_]{4,20}$"
+                   required>
+            <small>Solo letras, números y guion bajo (4-20 caracteres)</small>
+            <div class="invalid-feedback">
+                Ingrese un usuario válido.
+            </div>
+        </div>
 
         <!-- Nombre -->
         <div class="col-md-6 campo">
             <input type="text"
                    class="form-control"
+                   name="nombre"
                    id="nombre"
                    placeholder="Nombre completo"
                    pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,50}$"
@@ -27,6 +42,7 @@
         <div class="col-md-6 campo">
             <input type="email"
                    class="form-control"
+                   name="email"
                    id="correo"
                    placeholder="Correo electrónico"
                    required>
@@ -39,6 +55,7 @@
         <div class="col-md-6 campo">
             <input type="password"
                    class="form-control"
+                   name="password"
                    id="contrasena"
                    placeholder="Contraseña"
                    pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$"
@@ -73,9 +90,6 @@
                    min="10"
                    max="100"
                    required>
-            <div class="invalid-feedback">
-                Ingrese una edad válida (10 - 100).
-            </div>
         </div>
 
         <!-- Ciudad -->
@@ -84,11 +98,7 @@
                    class="form-control"
                    id="ciudad"
                    placeholder="Ciudad"
-                   pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{3,40}$"
                    required>
-            <div class="invalid-feedback">
-                Ingrese una ciudad válida.
-            </div>
         </div>
 
         <!-- Celular -->
@@ -100,9 +110,6 @@
                    pattern="^09\d{8}$"
                    required>
             <small>Debe iniciar con 09 y tener 10 dígitos</small>
-            <div class="invalid-feedback">
-                Número de celular inválido.
-            </div>
         </div>
 
         <!-- Categoría -->
@@ -113,12 +120,9 @@
                 <option>Oficina</option>
                 <option>Servicios</option>
             </select>
-            <div class="invalid-feedback">
-                Seleccione una categoría.
-            </div>
         </div>
 
-        <!-- Como nos conocíó -->
+        <!-- Como nos conoció -->
         <div class="col-md-6 campo">
             <select class="form-control" id="origen" required>
                 <option value="">¿Cómo nos conoció?</option>
@@ -126,22 +130,15 @@
                 <option>Recomendación</option>
                 <option>Visita al local</option>
             </select>
-            <div class="invalid-feedback">
-                Seleccione una opción.
-            </div>
         </div>
 
         <!-- Botones -->
         <div class="col-12 text-center">
-            <button type="submit"
-                    id="botonEnviar"
-                    class="btn btn-success px-4">
+            <button type="submit" class="btn btn-success px-4">
                 Registrar
             </button>
 
-            <button type="reset"
-                    id="botonLimpiar"
-                    class="btn btn-secondary px-4 ms-2">
+            <button type="reset" class="btn btn-secondary px-4 ms-2">
                 Limpiar
             </button>
         </div>
@@ -149,7 +146,6 @@
     </form>
 </section>
 
-<!-- Script de validación Bootstrap + Confirmación de contraseña -->
 <script>
 (() => {
     'use strict'
