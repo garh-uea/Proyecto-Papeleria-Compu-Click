@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from inventario import Inventario, crear_tablas
 from productos import PersistenciaArchivos
 from Conexion.conexion import obtener_conexion
@@ -45,39 +46,41 @@ def about():
 def login():
 
     if request.method == 'POST':
+
         usuario = request.form['usuario']
         password = request.form['password']
 
-        # NUEVA CONSULTA DIRECTA A MYSQL
+        # 🔍 Buscar por usuario (NO por email)
         conexion = obtener_conexion()
-
-        if conexion is None:
-            return "Error de conexión a la base de datos"
-
         cursor = conexion.cursor(dictionary=True)
 
         sql = "SELECT * FROM usuarios WHERE usuario = %s"
         cursor.execute(sql, (usuario,))
-        user_data = cursor.fetchone()
+        user = cursor.fetchone()
 
         conexion.close()
 
-        # VALIDACIÓN
-        if user_data and user_data['password'] == password:
-            user = Usuario(
-                id_usuario=user_data['id_usuario'],
-                usuario=user_data['usuario'],
-                nombre=user_data['nombre'],
-                email=user_data['email'],
-                password=user_data['password']
+        # 🔐 Verificar contraseña encriptada
+        if user and check_password_hash(user['password'], password):
+
+            user_obj = Usuario(
+                id_usuario=user['id_usuario'],
+                usuario=user['usuario'],
+                nombre=user['nombre'],
+                email=user['email'],
+                password=user['password']
             )
 
-            login_user(user)
+            login_user(user_obj)
             return redirect(url_for('ver_inventario'))
+
         else:
             return "Credenciales incorrectas"
 
     return render_template('login.html')
+
+
+
 
 # ================= LOGOUT =================
 @app.route('/logout')
@@ -86,6 +89,9 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+
+
+# ================= REGISTRO =================
 
 @app.route('/registro', methods=['GET','POST'])
 def registro():
@@ -97,27 +103,36 @@ def registro():
         email = request.form['email']
         password = request.form['password']
 
+        # 🔐 Encriptar contraseña
+        password_encriptada = generate_password_hash(password)
+
         conexion = obtener_conexion()
 
         if conexion is None:
             return "Error de conexión a la base de datos"
 
-        cursor = conexion.cursor()
+        try:
+            cursor = conexion.cursor()  # ✅ AQUÍ SE CREA
 
-        sql = """
-        INSERT INTO usuarios (usuario, nombre, email, password)
-        VALUES (%s, %s, %s, %s)
-        """
+            sql = """
+            INSERT INTO usuarios (usuario, nombre, email, password)
+            VALUES (%s, %s, %s, %s)
+            """
 
-        cursor.execute(sql,(usuario,nombre,email,password))
+            cursor.execute(sql,(usuario,nombre,email,password_encriptada))
 
-        conexion.commit()
-        conexion.close()
+            conexion.commit()
+
+        except Exception as e:
+            return f"Error al registrar: {e}"
+
+        finally:
+            cursor.close()
+            conexion.close()
 
         return redirect(url_for('login'))
 
     return render_template('registro.html')
-
 
 
 # ================= INVENTARIO (PROTEGIDO) =================
