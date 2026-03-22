@@ -30,12 +30,12 @@ def inicio():
     nombre = current_user.nombre if current_user.is_authenticated else None
     return render_template('index.html', nombre=nombre)
 
-# ================= CONTACTOS (RECUPERADO) =================
+# ================= CONTACTOS =================
 @app.route('/contactos')
 def contactos():
     return render_template('contactos.html')
 
-# ================= SOBRE NOSOTROS (RECUPERADO) =================
+# ================= SOBRE NOSOTROS =================
 @app.route('/sobre-nosotros')
 def about():
     return render_template('sobre-nosotros.html')
@@ -45,10 +45,10 @@ def about():
 def login():
 
     if request.method == 'POST':
-        usuario = request.form['usuario']   # 🔥 CAMBIO: ahora es usuario
+        usuario = request.form['usuario']
         password = request.form['password']
 
-        # 🔥 NUEVA CONSULTA DIRECTA A MYSQL
+        # NUEVA CONSULTA DIRECTA A MYSQL
         conexion = obtener_conexion()
 
         if conexion is None:
@@ -62,7 +62,7 @@ def login():
 
         conexion.close()
 
-        # 🔥 VALIDACIÓN
+        # VALIDACIÓN
         if user_data and user_data['password'] == password:
             user = Usuario(
                 id_usuario=user_data['id_usuario'],
@@ -192,6 +192,5 @@ def ver_datos():
         csv=datos_csv
     )
 
-# ================= RUN =================
 if __name__ == '__main__':
     app.run(debug=True)

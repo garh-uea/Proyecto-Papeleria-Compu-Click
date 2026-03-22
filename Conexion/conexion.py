@@ -6,7 +6,7 @@ def obtener_conexion():
         conexion = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # En XAMPP normalmente es vacío
+            password="",
             database="compu_click",
             port=3306,
             auth_plugin='mysql_native_password',
