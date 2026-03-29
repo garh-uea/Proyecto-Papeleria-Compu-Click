@@ -4,9 +4,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from inventario import Inventario
 from productos import PersistenciaArchivos
 from Conexion.conexion import obtener_conexion
-from models import Usuario, obtener_usuario_por_email, obtener_usuario_por_id
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer, Table
+from models import Usuario, obtener_usuario_por_id
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer, Table, TableStyle
+from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from werkzeug.utils import secure_filename
+import time
 import os
 
 app = Flask(__name__)
@@ -154,10 +158,6 @@ def agregar():
         stock = int(request.form['stock'])
         precio = float(request.form['precio'])
 
-        from werkzeug.utils import secure_filename
-        import os
-        import time
-
         archivo = request.files.get('imagen')
         nombre_imagen = ""
 
@@ -196,10 +196,6 @@ def agregar():
 @app.route('/editar/<int:id>', methods=['GET','POST'])
 @login_required
 def editar_producto(id):
-
-    from werkzeug.utils import secure_filename
-    import os
-    import time
 
     producto = inventario.obtener_por_id(id)
 
@@ -254,12 +250,6 @@ def eliminar(id):
 @app.route('/reporte_pdf')
 @login_required
 def reporte_pdf():
-
-    from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer, Table, TableStyle
-    from reportlab.lib import colors
-    from reportlab.lib.styles import getSampleStyleSheet
-    from reportlab.lib.units import inch
-    import os
 
     productos = inventario.obtener_todos()
 
