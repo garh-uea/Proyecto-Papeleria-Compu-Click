@@ -34,5 +34,17 @@
         "nombre": "Goma en Barra 8 Gm",
         "cantidad": 25,
         "precio": 0.5
+    },
+    {
+        "id": 11,
+        "nombre": "Sobre Manila A4",
+        "cantidad": 50,
+        "precio": 0.25
+    },
+    {
+        "id": 12,
+        "nombre": "Archivadores L8",
+        "cantidad": 25,
+        "precio": 2.75
     }
 ]

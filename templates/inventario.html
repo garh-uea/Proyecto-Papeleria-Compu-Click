@@ -1,61 +1,58 @@
-
 {% extends "base.html" %}
 {% block title %}Inventario{% endblock %}
 
 {% block content %}
 
 <div class="container my-5">
-    <h2 class="text-center">Inventario de Productos</h2>
 
-    <div class="text-end mb-3">
-        <a href="{{ url_for('agregar') }}" class="btn btn-success">
-            Añadir Producto
-        </a>
-    </div>
+<h2 class="text-center">Inventario de Productos</h2>
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
+<form method="POST" class="d-flex mb-3">
+    <input type="text" name="buscar" class="form-control me-2" placeholder="Buscar producto...">
+    <button class="btn btn-primary">Buscar</button>
+</form>
 
-            {% if productos %}
-                {% for producto in productos %}
-                <tr>
-                    <td>{{ producto[0] }}</td>
-                    <td>{{ producto[1] }}</td>
-                    <td>{{ producto[2] }}</td>
-                    <td>${{ producto[3] }}</td>
-                    <td>
-                        <a href="{{ url_for('editar_producto', id=producto[0]) }}" 
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+<div class="d-flex justify-content-between mb-3">
+    <a href="{{ url_for('agregar') }}" class="btn btn-success">Añadir Producto</a>
+    <a href="{{ url_for('reporte_pdf') }}" class="btn btn-danger">Generar PDF</a>
+</div>
 
-                        <a href="{{ url_for('eliminar', id=producto[0]) }}" 
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('¿Está seguro de eliminar este producto?');">
-                            Eliminar
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="5" class="text-center">
-                        No hay productos registrados.
-                    </td>
-                </tr>
-            {% endif %}
+<table class="table table-bordered table-hover">
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Precio</th>
+<th>Stock</th>
+<th>Acciones</th>
+</tr>
+</thead>
 
-        </tbody>
-    </table>
+<tbody>
+{% for p in productos %}
+<tr>
+<td>{{ p[0] }}</td>
+<td>{{ p[1] }}</td>
+<td>${{ p[2] }}</td>
+<td>{{ p[3] }}</td>
+<td>
+
+<a href="{{ url_for('editar_producto', id=p[0]) }}">
+<img src="{{ url_for('static', filename='Multimedia/edit.png') }}" width="30">
+</a>
+
+<a href="{{ url_for('eliminar', id=p[0]) }}"
+onclick="return confirm('¿Eliminar producto?')">
+<img src="{{ url_for('static', filename='Multimedia/delete.png') }}" width="30">
+</a>
+
+</td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+
 </div>
 
 {% endblock %}

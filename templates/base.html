@@ -39,6 +39,10 @@
 
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('ventas') }}">Ventas</a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('ver_inventario') }}">Inventario</a>
                 </li>
 
@@ -85,18 +89,41 @@
 
 <div style="margin-top: 80px;"></div>
 
-<!-- MENSAJES -->
-<div class="container mt-3">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for msg in messages %}
-                <div class="alert alert-info text-center">
-                    {{ msg }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+
+<!-- NOTIFICACIONES -->
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      
+        <div class="toast align-items-center text-bg-{{ category }} border-0 show" role="alert">
+          <div class="d-flex">
+            <div class="toast-body">
+              {{ message }}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        </div>
+
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+    toastElList.map(function (toastEl) {
+        var toast = new bootstrap.Toast(toastEl, {
+            delay: 3000  // 3 segundos
+        })
+        toast.show()
+    })
+});
+</script>
+
 
 <!-- CONTENIDO -->
 {% block content %}

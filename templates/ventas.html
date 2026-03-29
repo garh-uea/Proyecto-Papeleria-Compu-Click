@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+
+<h2 class="text-center mb-4">Registro de Ventas</h2>
+
+<form method="POST">
+
+<div class="mb-3">
+<label>Fecha</label>
+<input type="date" name="fecha" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Identificación del Cliente</label>
+<input type="number" name="id_cliente" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Producto</label>
+<select name="producto_id" class="form-control" required>
+    <option value="" disabled selected>Seleccione un producto</option>
+    {% for p in productos %}
+        <option value="{{ p.id_producto }}">
+            {{ p.nombre }} - ${{ p.precio }}
+        </option>
+    {% endfor %}
+</select>
+</div>
+
+<div class="mb-3">
+<label>Cantidad</label>
+<input type="number" name="cantidad" class="form-control" min="1" required>
+</div>
+
+<div class="text-center">
+<button class="btn btn-success">Registrar Venta</button>
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}
