@@ -6,3 +6,4 @@
 10,Goma en Barra 8 Gm,25,0.5
 11,Sobre Manila A4,50,0.25
 12,Archivadores L8,25,2.75
+13,Pinturas Norma,20,5.0

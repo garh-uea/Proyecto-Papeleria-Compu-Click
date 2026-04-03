@@ -46,5 +46,11 @@
         "nombre": "Archivadores L8",
         "cantidad": 25,
         "precio": 2.75
+    },
+    {
+        "id": 13,
+        "nombre": "Pinturas Norma",
+        "cantidad": 20,
+        "precio": 5.0
     }
 ]

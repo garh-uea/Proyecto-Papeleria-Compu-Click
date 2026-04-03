@@ -36,6 +36,16 @@
 <input type="number" name="cantidad" class="form-control" min="1" required>
 </div>
 
+<div class="mb-3">
+    <label>Método de Pago</label>
+    <select name="metodo_pago" class="form-control" required>
+        <option value="">Seleccione método</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Tarjeta">Tarjeta Débito/Crédito</option>
+        <option value="Transferencia">Transferencia</option>
+    </select>
+</div>
+
 <div class="text-center">
 <button class="btn btn-success">Registrar Venta</button>
 </div>

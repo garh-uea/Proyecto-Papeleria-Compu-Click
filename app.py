@@ -78,7 +78,7 @@ def login():
             )
 
             login_user(user_obj)
-            return redirect(url_for('ver_inventario'))
+            return redirect(url_for('inicio'))
 
         else:
             return "Credenciales incorrectas"
@@ -368,8 +368,9 @@ def ventas():
         id_cliente = request.form.get('id_cliente')
         producto_id = request.form.get('producto_id')
         cantidad = request.form.get('cantidad')
+        metodo_pago = request.form.get('metodo_pago') 
 
-        if not fecha or not id_cliente or not producto_id or not cantidad:
+        if not fecha or not id_cliente or not producto_id or not cantidad or not metodo_pago:
             return "⚠️ Todos los campos son obligatorios"
 
         try:
@@ -379,22 +380,46 @@ def ventas():
         except ValueError:
             return "⚠️ Datos inválidos"
 
-        # Obtener precio
-        cursor.execute("SELECT precio FROM producto WHERE id_producto=%s", (producto_id,))
+        # Obtener precio y stock
+        cursor.execute("SELECT precio, stock FROM producto WHERE id_producto=%s", (producto_id,))
         producto = cursor.fetchone()
 
         if not producto:
             return "⚠️ Producto no encontrado"
+
+        # VALIDAR STOCK
+        if cantidad > producto['stock']:
+            return "⚠️ No hay suficiente stock disponible"
 
         precio = float(producto['precio'])
         total = precio * cantidad
 
         # Guardar venta
         sql = """
-        INSERT INTO ventas (fecha, total, id_cliente)
-        VALUES (%s, %s, %s)
+        INSERT INTO ventas (fecha, total, id_cliente, metodo_pago)
+        VALUES (%s, %s, %s, %s)
         """
-        cursor.execute(sql, (fecha, total, id_cliente))
+        cursor.execute(sql, (fecha, total, id_cliente, metodo_pago))
+        conexion.commit()
+
+        # obtener id de la venta recién creada
+        id_venta = cursor.lastrowid
+
+        # guardar detalle
+        sql_detalle = """
+        INSERT INTO detalle_venta (id_venta, id_producto, cantidad, precio)
+        VALUES (%s, %s, %s, %s)
+        """
+        cursor.execute(sql_detalle, (id_venta, producto_id, cantidad, precio))
+        conexion.commit()
+
+        # 🔻 DESCONTAR STOCK (mejor aquí)
+        sql_update_stock = """
+        UPDATE producto
+        SET stock = stock - %s
+        WHERE id_producto = %s
+        """
+        cursor.execute(sql_update_stock, (cantidad, producto_id))
         conexion.commit()
 
         conexion.close()

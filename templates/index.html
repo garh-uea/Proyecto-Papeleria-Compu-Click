@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<!-- ================= ENCABEZADO ORIGINAL ================= -->
+<!-- ================= ENCABEZADO  ================= -->
 <header class="hero-full text-light text-center py-5">
     <div class="container">
 
@@ -25,7 +25,6 @@
     </div>
 </header>
 
-<!-- ================= NUEVO HERO MEJORADO ================= -->
 <section class="hero-full">
     <div class="container-fluid">
         <div class="row align-items-center min-vh-100 px-5">
@@ -34,7 +33,7 @@
                 <h1>PAPELERÍA <span>COMPU CLICK</span></h1>
                 <p>Útiles escolares, artículos de oficina, impresiones, recargas, insumos de aseo y más...</p>
 
-                <a href="#precios" class="btn btn-primary btn-lg me-3">Ver precios</a>
+                <a href="#categorias" class="btn btn-primary btn-lg me-3">Categorías destacadas</a>
                 <a href="#sesion" class="btn btn-outline-light btn-lg">Inicia Sesión</a>
             </div>
 
@@ -100,31 +99,40 @@
     </div>
 </section>
 
-<!-- ================= TABLA ================= -->
-<section id="precios" class="container my-5">
-    <h2 class="text-center mb-4">Lista de Precios</h2>
+<!-- ================= CATEGORÍAS DESTACADAS ================= -->
+<section id="categorias" class="container my-5">
 
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Producto</th>
-                    <th>Categoría</th>
-                    <th>Detalle</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Cuaderno</td><td>Útiles</td><td>100 hojas</td><td>$1.50</td></tr>
-                <tr><td>Resma A4</td><td>Oficina</td><td>500 hojas</td><td>$4.00</td></tr>
-                <tr><td>Impresión B/N</td><td>Servicios</td><td>Por hoja</td><td>$0.10</td></tr>
-                <tr><td>Impresión color</td><td>Servicios</td><td>Alta calidad</td><td>$0.50</td></tr>
-            </tbody>
-        </table>
+    <h2 class="text-center mb-4">Categorías Destacadas</h2>
+
+    <div class="grid-categorias">
+
+        <div class="item grande">
+            <img src="{{ url_for('static', filename='Multimedia/categorias/papeles.png') }}">
+        </div>
+
+        <div class="item">
+            <img src="{{ url_for('static', filename='Multimedia/categorias/impresoras.png') }}">
+        </div>
+
+        <div class="item">
+            <img src="{{ url_for('static', filename='Multimedia/categorias/tv.png') }}">
+        </div>
+
+        <div class="item">
+            <img src="{{ url_for('static', filename='Multimedia/categorias/oficina.png') }}">
+        </div>
+
+        <div class="item">
+            <img src="{{ url_for('static', filename='Multimedia/categorias/boligrafos.png') }}">
+        </div>
+
+
     </div>
+
 </section>
 
-<!-- ================= AQUI INICIO DE SESIÓN ================= -->
+
+<!-- ================= INICIO DE SESIÓN ================= -->
 {% if not current_user.is_authenticated %}
 <section id="sesion" class="container my-5">
     <div class="row justify-content-center">

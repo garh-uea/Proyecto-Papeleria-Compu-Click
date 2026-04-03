@@ -3,7 +3,7 @@ body {
 }
 
 .hero-full {
-    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    background: linear-gradient(165deg, #0d47a1, #1976d2);
 }
 
 .hero-full span {
@@ -259,7 +259,7 @@ form{
 }
 
 
-/* ===== CARRUSEL MEJORADO ===== */
+/* ===== CARRUSEL  ===== */
 
 #carouselServicios {
     max-width: 800px;
@@ -272,13 +272,49 @@ form{
     border-radius: 10px;
 }
 
-/* Flechas más visibles */
+/* Flechas más visibles del carrusel */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
     background-color: rgba(0,0,0,0.6);
     border-radius: 50%;
     padding: 15px;
 }
+
+/* ===== TARJETAS VISUALES ===== */
+.card-custom {
+    border: none;
+    overflow: hidden;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Imagen */
+.card-custom img {
+    height: 200px;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.card-custom .card-img-overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+}
+
+/* efecto relieve */
+.card-custom:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Botón */
+.card-custom .btn {
+    width: fit-content;
+    margin-top: 10px;
+}
+
+
 
 /* ===== ICONOS REDES SOCIALES ===== */
 
@@ -287,7 +323,7 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px; /* espacio entre iconos */
+    gap: 15px;
 }
 
 .icono-red {
@@ -299,5 +335,37 @@ form{
 
 .icono-red:hover {
     transform: scale(1.2);
+}
+
+
+.grid-categorias {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 180px;
+    gap: 15px;
+}
+
+/* ITEMS */
+.grid-categorias .item {
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+/* IMÁGENES */
+.grid-categorias img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+}
+
+/* EFECTO */
+.grid-categorias .item:hover img {
+    transform: scale(1.05);
+}
+
+/* 2 columnas */
+.grid-categorias .grande {
+    grid-column: span 2;
+    grid-row: span 1;
 }
 
